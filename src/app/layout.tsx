@@ -1,5 +1,7 @@
-import type { Metadata } from "next";
 import localFont from "next/font/local"
+import Navbar from "./components/Navbar/Navbar"
+import type { Metadata } from "next";
+import "./styles/main.scss"
 
 const netflixSans = localFont({
   src: [
@@ -37,7 +39,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={netflixSans.className}>
-      <body>{children}</body>
+      <body>
+        <Navbar />
+        <main>
+          {children}
+        </main>
+      </body>
     </html>
   );
 }

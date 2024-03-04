@@ -1,0 +1,24 @@
+$primary-font: #e5e5e5;
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: inherit;
+}
+
+html {
+    box-sizing: border-box;
+    font-size: 62.5%;
+}
+
+body {
+    font-weight: 400;
+    font-size: 1.6rem;
+    line-height: 1.6;
+    color: $primary-font;
+}

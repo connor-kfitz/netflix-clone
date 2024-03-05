@@ -1,0 +1,43 @@
+.swimlane {
+    position: relative;
+    margin: 3vw 0;
+
+    &__title {
+        font-size: 1.4vw;
+        font-weight: 500;
+        line-height: 1.25vw;
+        margin-left: 6rem;
+        margin-bottom: 1rem;
+    }
+
+    &__container {
+        position: relative;
+        display: flex;
+        width: 100%;
+        padding-left: 6rem;
+        overflow-x: hidden;
+
+        &:hover {
+            .swimlane__right-arrow {
+                display: flex;
+            }
+        }
+    }
+
+    &__right-arrow {
+        display: none;
+        position: absolute;
+        right: 0;
+        justify-content: center;
+        align-items: center;
+        background-color: hsla(0,0%,8%,.5);
+        height: 100%;
+        width: 6rem;
+        cursor: pointer;
+    }
+
+    &__right-arrow-icon {
+        width: 1.5vw;
+        height: auto;
+    }
+}

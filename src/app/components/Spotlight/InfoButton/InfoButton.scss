@@ -1,0 +1,25 @@
+.info-button {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: #fff;
+    font-size: 1.2vw;
+    font-weight: 500;
+    background-color: rgba(109, 109, 110, 0.7);
+    padding: .4vw 1.8vw .4vw 1.5vw;
+    border-radius: .4rem;
+    flex-shrink: 0;
+    outline: none;
+    border: none;
+    cursor: pointer;
+
+    &:hover {
+        background-color: rgba(109, 109, 110, 0.4);
+    }
+
+    &__icon {
+        width: 1.95vw;
+        height: auto;
+        margin-right: 1vw;
+    }
+}

@@ -12,8 +12,8 @@ export default function Navbar() {
         <Image className="navbar__logo-image" priority src={netflixLogo} alt="Netflix Logo"/>
       </Link>
       <ul className="navbar__link-container">
-        {navItems.map(item => (
-          <li className="menu-link">
+        {navItems.map((item, index) => (
+          <li className="menu-link" key={index}>
             <Link className="menu-link__link" href={item.path}>
               {item.name}
             </Link>

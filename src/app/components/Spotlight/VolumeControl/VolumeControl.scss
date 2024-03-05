@@ -1,0 +1,19 @@
+.volume-control {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    outline: none;
+    border: solid 1px #f3f4f4;
+    border-radius: 10rem;
+    background: none;
+    margin-right: 2rem;
+    width: 2.4vw;
+    height: 2.4vw;
+    cursor: pointer;
+
+    &__icon {
+        width: 60%;
+        height: 60%;
+    }
+}
+

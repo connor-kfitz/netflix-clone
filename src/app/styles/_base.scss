@@ -14,11 +14,13 @@ $primary-font: #e5e5e5;
 html {
     box-sizing: border-box;
     font-size: 62.5%;
+    height: 100%;
 }
 
 body {
     font-weight: 400;
     font-size: 1.6rem;
+    height: 100%;
     line-height: 1.6;
     color: $primary-font;
     background-color: #141414;

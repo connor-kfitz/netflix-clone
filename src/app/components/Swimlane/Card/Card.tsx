@@ -7,7 +7,7 @@ type CardProps = {
 export default function Card({ cardData }: CardProps) {
 
   return (
-    <a className="card">
+    <a className="card" href='/watch'>
       <img className="card__image" src={cardData.thumbImage}/>
       <div className="card__gradient"></div>
       <div className="card__title">{cardData.title}</div>

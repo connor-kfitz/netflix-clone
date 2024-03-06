@@ -15,3 +15,14 @@ type Swimlane = {
     genre: string;
     data: Card[];
 }
+
+type SocialItem = {
+    icon: string;
+    path: string;
+    alt: string;
+}
+
+type FooterItem = {
+    name: string;
+    path: string;
+}

@@ -1,0 +1,17 @@
+.service-code-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 13px;
+    font-weight: 300;
+    color: grey;
+    border: 1px solid grey;
+    background-color: transparent;
+    margin-bottom: 2rem;
+    padding: .7rem;
+    cursor: pointer;
+
+    &:hover {
+        color: #fff;
+    }
+}

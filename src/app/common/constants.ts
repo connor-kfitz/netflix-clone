@@ -1,30 +1,115 @@
 // Navbar //
 
 export const navItems: NavItem[] = [
-    {
-        name: 'Home',
-        path: '/browse'
-    },
-    {
-        name: 'TV Shows',
-        path: '/browse'
-    },
-    {
-        name: 'Movies',
-        path: '/browse'
-    },
-    {
-        name: 'New & Popular',
-        path: '/browse'
-    },
-    {
-        name: 'My List',
-        path: '/browse'
-    },
-    {
-        name: 'Browse by Languages',
-        path: '/browse'
-    }
+  {
+      name: 'Home',
+      path: '/browse'
+  },
+  {
+      name: 'TV Shows',
+      path: '/browse'
+  },
+  {
+      name: 'Movies',
+      path: '/browse'
+  },
+  {
+      name: 'New & Popular',
+      path: '/browse'
+  },
+  {
+      name: 'My List',
+      path: '/browse'
+  },
+  {
+      name: 'Browse by Languages',
+      path: '/browse'
+  }
+]
+
+// Footer //
+import FacebookIcon from "../../../public/images/footer/facebook-icon.svg";
+import InstagramIcon from "../../../public/images/footer/instagram-icon.svg";
+import TwitterIcon from "../../../public/images/footer/twitter-icon.svg";
+import YoutubeIcon from "../../../public/images/footer/youtube-icon.svg";
+
+
+export const socials: SocialItem[] = [
+  {
+    icon: FacebookIcon,
+    path: 'https://www.facebook.com/netflixcanada',
+    alt: 'Facebook'
+  },
+  {
+    icon: InstagramIcon,
+    path: 'https://www.instagram.com/Netflix',
+    alt: 'Instagram'
+  },
+  {
+    icon: TwitterIcon,
+    path: 'https://twitter.com/netflix_CA',
+    alt: 'Twitter'
+  },
+  {
+    icon: YoutubeIcon,
+    path: 'https://www.youtube.com/user/NewOnNetflix',
+    alt: 'Youtube'
+  }
+]
+
+export const footerItems: FooterItem[] = [
+  {
+    name: 'Audio Description',
+    path: 'https://www.netflix.com/browse/audio-description'
+  },
+  {
+    name: 'Help Center',
+    path: 'https://help.netflix.com/en/'
+  },
+  {
+    name: 'Gift Cards',
+    path: 'https://www.netflix.com/ca/redeem'
+  },
+  {
+    name: 'Media Center',
+    path: 'https://media.netflix.com/en/'
+  },
+  {
+    name: 'Investor Relations',
+    path: 'https://ir.netflix.net/ir-overview/profile/default.aspx'
+  },
+  {
+    name: 'Jobs',
+    path: 'https://jobs.netflix.com/'
+  },
+  {
+    name: 'Netflix Shop',
+    path: 'https://netflix.shop/'
+  },
+  {
+    name: 'Terms of Use',
+    path: 'https://help.netflix.com/legal/termsofuse'
+  },
+  {
+    name: 'Privacy',
+    path: 'https://help.netflix.com/legal/privacy'
+  },
+  {
+    name: 'Legal Notice',
+    path: 'https://help.netflix.com/legal/notices'
+  },
+  {
+    name: 'Corporate Information',
+    path: 'https://help.netflix.com/legal/corpinfo'
+  },
+  {
+    name: 'Contact Us',
+    path: 'https://help.netflix.com/en/contactus'
+  },
+  {
+    name: 'Ad Choices',
+    path: 'https://help.netflix.com/en/node/100637'
+  }
 ]
 
 export const genres = [

@@ -1,6 +1,6 @@
 import React from 'react'
 import Link from "next/link"
-import netflixLogo from "../../../../public/images/Netflix-Logo.svg"
+import netflixLogo from "../../../../public/images/navbar/Netflix-Logo.svg"
 import Image from "next/image"
 import { navItems } from "../../common/constants";
 import './Navbar.scss';

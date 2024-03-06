@@ -1,7 +1,7 @@
 "use client"
 import Image from "next/image"
-import VolumeOffIcon from "../../../../../public/images/spotlight-volume-control-off.svg"
-import VolumeOnIcon from "../../../../../public/images/spotlight-volume-control-on.svg"
+import VolumeOffIcon from "../../../../../public/images/spotlight/spotlight-volume-control-off.svg"
+import VolumeOnIcon from "../../../../../public/images/spotlight/spotlight-volume-control-on.svg"
 import { useState } from "react"
 import "./VolumeControl.scss"
 

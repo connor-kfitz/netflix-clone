@@ -4,11 +4,14 @@ type NavItem = {
 }
 
 type Card = {
-    id: string;
+    title: string;
+    description;
     thumbImage: string;
+    genre;
 }
 
 type Swimlane = {
-    title: string;
-    cards: Card[];
+    type: string;
+    genre: string;
+    data: Card[];
 }

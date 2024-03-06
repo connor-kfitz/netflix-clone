@@ -1,16 +1,17 @@
 import Spotlight from "../components/Spotlight/Spotlight";
 import Swimlane from "../components/Swimlane/Swimlane";
+import { getCards } from "../../../dataFetch";
 
 export default async function BrowsePage() {
 
-  const swimlanes = Array.from(Array(10).keys());
+  const swimlanes = await getCards();
 
   return (
     <>
       <Spotlight/>
-      {swimlanes.map((swimlane, index) => (
-        <Swimlane data={swimlane} key={index}/>
+      {swimlanes.map((swimlane: Swimlane, index: number) => (
+        <Swimlane swimlaneData={swimlane} key={index}/>
       ))}
     </>
   );
-  }
+}

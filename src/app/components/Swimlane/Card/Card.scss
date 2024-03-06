@@ -1,9 +1,13 @@
 .card {
-    flex: 0 0 16.66666667%;
+    flex: 0 0 15.62%;
     display: block;
     width: 16.66%;
-    aspect-ratio: 1.73;
-    background-color: orangered;
-    // Change this to padding when images are uploaded
-    margin-right: 0.2vw;
+    margin: 0 0.2vw;
+    cursor: pointer;
+
+    &__image {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
 }

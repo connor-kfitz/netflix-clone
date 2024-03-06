@@ -3,16 +3,18 @@ import RightArrowIcon from "../../../../public/images/swimlane/right-arrow.svg";
 import Image from "next/image";
 import "./Swimlane.scss";
 
-export default function Swimlane(data: any, key: number) {
+type SwimlaneProps = {
+  swimlaneData: Swimlane,
+}
 
-  const cards = Array.from(Array(18).keys());
+export default function Swimlane({ swimlaneData }: SwimlaneProps) {
 
   return (
     <div className="swimlane">
-      <h2 className="swimlane__title">Lane Title</h2>
+      <h2 className="swimlane__title">{swimlaneData.genre}</h2>
       <div className="swimlane__container">
-        {cards.map((card, index) => (
-          <Card data={card} key={index}/>
+        {swimlaneData.data.map((card: Card, index: number) => (
+          <Card cardData={card} key={index}/>
         ))}
         <span className="swimlane__right-arrow">
           <Image className="swimlane__right-arrow-icon" src={RightArrowIcon} alt="Arrow"/>

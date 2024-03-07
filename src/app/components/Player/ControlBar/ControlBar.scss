@@ -49,10 +49,16 @@
     &__icon {
         width: 100%;
         height: 100%;
+        transition: 0.1s;
+
+        &:hover {
+            scale: 1.4;
+        }
     }
 
     &__video-title {
         font-size: 2rem;
         margin: 0 auto;
+        cursor: default;
     }
 }

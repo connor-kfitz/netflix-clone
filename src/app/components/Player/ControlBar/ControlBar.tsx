@@ -18,13 +18,32 @@ type ControlBarProps = {
 export default function ControlBar({playerElement, videoElement}: ControlBarProps) {
   // Todo: Listen to video playing event to setPlaying()
 
-  const [playing, setPlaying] = useState(true);
+  const [playing, setPlaying] = useState(false);
   const [playbackSpeed, setPlaybackSpeed] = useState('1');
   const [fullscreen, setFullscreen] = useState(false);
 
   useEffect(() => {
     setSpeed(playbackSpeed);
   }, [playbackSpeed])
+
+  useEffect(() => {
+    initPlayListener();
+    initPauseListener();
+  }, [])
+
+  function initPlayListener(): void {
+    if (!videoElement.current) return;
+    videoElement.current.addEventListener('play', () => {
+      setPlaying(true);
+    })
+  }
+
+  function initPauseListener(): void {
+    if (!videoElement.current) return;
+    videoElement.current.addEventListener('pause', () => {
+      setPlaying(false);
+    })
+  }
 
   function togglePlay(): void {
     if (!videoElement.current) return;

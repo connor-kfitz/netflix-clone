@@ -8,10 +8,11 @@ import "./Player.scss";
 
 export default function Player() {
 
+  const playerElement = useRef(null)
   const videoElement = useRef(null);
 
   return (
-    <div className="player">
+    <div className="player" ref={playerElement}>
       <video className="player__video" ref={videoElement} autoPlay muted> 
         <source src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"></source>
       </video>
@@ -21,7 +22,7 @@ export default function Player() {
       <button className="player__flag-issue">
         <Image className="player__flag-issue-icon" src={FlagIcon} alt="Flag"/>
       </button>
-      <ControlBar videoElement={videoElement}/>
+      <ControlBar playerElement={playerElement} videoElement={videoElement}/>
     </div>
   )
 }

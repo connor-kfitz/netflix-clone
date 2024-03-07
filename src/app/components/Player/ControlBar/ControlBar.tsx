@@ -5,19 +5,22 @@ import RewindIcon from "../../../../../public/images/player/rewind-icon.svg";
 import SkipIcon from "../../../../../public/images/player/skip-icon.svg";
 import VolumeIcon from "../../../../../public/images/player/volume-max-icon.svg";
 import PlaybackSpeedIcon from "../../../../../public/images/player/playback-speed-icon.svg";
-import FullscreenIcon from "../../../../../public/images/player/fullscreen-icon.svg";
+import FullscreenOffIcon from "../../../../../public/images/player/fullscreen-off-icon.svg";
+import FullscreenOnIcon from "../../../../../public/images/player/fullscreen-on-icon.svg";
 import { RefObject, useState, useEffect } from "react";
 import "./ControlBar.scss";
 
 type ControlBarProps = {
-    videoElement: RefObject<HTMLVideoElement>,
+    playerElement: RefObject<HTMLElement>,
+    videoElement: RefObject<HTMLVideoElement>
 }
 
-export default function ControlBar({videoElement}: ControlBarProps) {
+export default function ControlBar({playerElement, videoElement}: ControlBarProps) {
 
   const [playing, setPlaying] = useState(true);
   const [volumeLevel, setVolumeLevel] = useState('100');
   const [playbackSpeed, setPlaybackSpeed] = useState('1');
+  const [fullscreen, setFullscreen] = useState(false);
 
   useEffect(() => {
     // Todo: Debounce
@@ -58,6 +61,22 @@ export default function ControlBar({videoElement}: ControlBarProps) {
     if (!videoElement.current) return;
     const player = videoElement.current;
     player.playbackRate = Number(speed);
+  }
+
+  function toggleFullscreen(): void {
+    if (!playerElement.current || !videoElement.current) return;
+    const player = playerElement.current;
+    if (document.fullscreenElement) {
+      if (document.exitFullscreen) { document.exitFullscreen() }
+      else if (document.webkitExitFullscreen) { document.webkitExitFullscreen() }
+      else if (document.msExitFullscreen) { document.msExitFullscreen() }
+      setFullscreen(false);
+    } else {
+      if (player.requestFullscreen) { player.requestFullscreen() }
+      else if (player.webkitRequestFullscreen) { player.webkitRequestFullscreen() }
+      else if (player.msRequestFullscreen) { player.msRequestFullscreen() }
+      setFullscreen(true);
+    }
   }
 
   return (
@@ -160,8 +179,8 @@ export default function ControlBar({videoElement}: ControlBarProps) {
           </button>
         </li>
         <li className="control-bar__fullscreen-item control-bar__item">
-            <button className="control-bar__fullscreen-button control-bar__button">
-                <Image className="control-bar__fullscreen-button-icon control-bar__icon" src={FullscreenIcon} alt="Fullscreen"/>
+            <button className="control-bar__fullscreen-button control-bar__button" onClick={() => toggleFullscreen()}>
+                <Image className="control-bar__fullscreen-button-icon control-bar__icon" src={fullscreen ? FullscreenOnIcon : FullscreenOffIcon} alt="Fullscreen"/>
             </button>
         </li>
       </ul>

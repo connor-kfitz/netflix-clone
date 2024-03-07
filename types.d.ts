@@ -26,3 +26,13 @@ type FooterItem = {
     name: string;
     path: string;
 }
+
+interface Document {
+    webkitExitFullscreen: any;
+    msExitFullscreen: any;
+}
+
+interface HTMLElement {
+    webkitRequestFullscreen: any;
+    msRequestFullscreen: any;
+}

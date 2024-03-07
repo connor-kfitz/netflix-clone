@@ -58,46 +58,6 @@
         transition: 0.1s;
     }
 
-    &__volume-button {
-        position: relative;
-
-        &:hover {
-            .control-bar__volume-container {
-                display: flex;
-            }
-        }
-    }
-
-    &__volume-container {
-        box-sizing: content-box;
-        position: absolute;
-        top: 0;
-        transform: translateY(-100%);
-        display: none;
-        flex-direction: column;
-        justify-content: center;
-        width: 4rem;
-        border-radius: .4rem;
-    }
-
-    &__volume-background {
-        background-color: rgb(38, 38, 38);
-        padding: 2rem 0;
-        border-radius: inherit;
-    }
-
-    &__volume-slider {
-        writing-mode: vertical-lr;
-        accent-color: #ff0000;
-        width: 100%;
-        cursor: pointer;
-    }
-
-    &__volume-padding {
-        height: 3rem;
-        background-color: transparent;
-    }
-
     &__video-title {
         font-size: 2rem;
         margin: 0 auto;

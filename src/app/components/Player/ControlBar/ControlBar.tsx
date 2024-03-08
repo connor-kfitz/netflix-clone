@@ -74,8 +74,26 @@ export default function ControlBar({playerElement, videoElement}: ControlBarProp
     const scrubberLength = scrubberRef.current.offsetWidth;
     const clickedPercent = (event.clientX - event.target.getBoundingClientRect().left) / scrubberLength;
     player.currentTime = player.duration * clickedPercent;
-
   }
+
+  function getReaminingTime(): string {
+    if (!videoElement.current) return '';
+    const player = videoElement.current;
+    const remainingTime = player.duration - player.currentTime;
+    const date = new Date(0);
+    date.setSeconds(remainingTime);
+    return removeLeadingZeros(date.toISOString().substring(11, 19));
+  }
+
+  // Todo: Move to Lib Folder
+  function removeLeadingZeros(input: string): string {
+    let result = input;
+    for (let i=0; i < result.length - 1; i++) {
+      if (result[0] === '0' || result[0] === ':') result = result.substring(1);
+    }
+    return result;
+  }
+
 
   function togglePlay(): void {
     if (!videoElement.current) return;
@@ -125,7 +143,7 @@ export default function ControlBar({playerElement, videoElement}: ControlBarProp
           <div className="scrubber__played" style={{width: getPlayedWidth() + "px"}}></div>
           <div className="scrubber__thumb" style={{left: scrubberPosition + "px"}}></div>
         </div>
-        <div className="control-bar__time">1:29:35</div>
+        <div className="control-bar__time">{getReaminingTime()}</div>
       </div>
       <ul className="control-bar__options-container">
         <li className="control-bar__play-item control-bar__item">

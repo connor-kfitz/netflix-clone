@@ -2,11 +2,11 @@ import "./VolumeButton.scss"
 import "../ControlBar.scss";
 import { useState, useEffect, RefObject, useRef } from "react";
 
-type ControlBarProps = {
+type VolumeButtonProps = {
     videoElement: RefObject<HTMLVideoElement>,
 }
 
-export default function VolumeSlider({videoElement}: ControlBarProps) {
+export default function VolumeSlider({videoElement}: VolumeButtonProps) {
 
   const [volumeLevel, setVolumeLevel] = useState('100');
   

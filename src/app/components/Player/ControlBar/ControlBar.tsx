@@ -9,6 +9,7 @@ import FullscreenOnIcon from "../../../../../public/images/player/fullscreen-on-
 import VolumeButton from "./VolumeButton/VolumeButton";
 import { RefObject, useState, useEffect, useRef } from "react";
 import "./ControlBar.scss";
+import PlaybackSpeedButton from "./PlaybackSpeedButton/PlaybackSpeedButton";
 
 type ControlBarProps = {
     playerElement: RefObject<HTMLElement>,
@@ -19,14 +20,9 @@ export default function ControlBar({playerElement, videoElement}: ControlBarProp
 
   const [scrubberPosition, setScrubberPosition] = useState(0);
   const [playing, setPlaying] = useState(true);
-  const [playbackSpeed, setPlaybackSpeed] = useState('1');
   const [fullscreen, setFullscreen] = useState(false);
 
   const scrubberRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    setSpeed(playbackSpeed);
-  }, [playbackSpeed])
 
   useEffect(() => {
     initPlayListener();
@@ -112,12 +108,6 @@ export default function ControlBar({playerElement, videoElement}: ControlBarProp
     player.currentTime = player.currentTime + 10
   }
 
-  function setSpeed(speed: string): void {
-    if (!videoElement.current) return;
-    const player = videoElement.current;
-    player.playbackRate = Number(speed);
-  }
-
   function toggleFullscreen(): void {
     if (!playerElement.current || !videoElement.current) return;
     const player = playerElement.current;
@@ -165,67 +155,7 @@ export default function ControlBar({playerElement, videoElement}: ControlBarProp
         {/* Todo: Integrate with asset data */}
         <li className="control-bar__video-title">Big Buck Bunny</li>
         <li className="control-bar__playback-speed-item control-bar__item">
-          <button className="control-bar__playback-speed-button control-bar__button">
-            <Image className="control-bar__playback-speed-button-icon control-bar__icon" src={PlaybackSpeedIcon} alt="Playback Speed"/>
-            <div className="playback-speed">
-              <div className="playback-speed__content">
-              <div className="playback-speed__title">Playback Speed</div>
-              <ul className="playback-speed__options-container">
-                <li className={"playback-speed__option first" + (playbackSpeed == '0.5' ? " active" : '')} onClick={() => setPlaybackSpeed('0.5')}>
-                  <div className="playback-speed__option-line first">
-                    {playbackSpeed == '0.5' ? (
-                      <svg viewBox="0 0 26 26" className="playback-speed__icon active first"><circle cx="13" cy="13" fill="#232323" r="12" stroke="#b3b3b3" strokeWidth="2"></circle><circle cx="13" cy="13" fill="#ffffff" r="6"></circle></svg>
-                    ) : (
-                      <svg className="playback-speed__icon" viewBox="0 0 8 8"><circle cx="4" cy="4" r="4" fill="#d8d8d8"/></svg>
-                    )}
-                    0.5x
-                  </div>
-                </li>
-                <li className={"playback-speed__option" + (playbackSpeed == '0.75' ? " active" : '')} onClick={() => setPlaybackSpeed('0.75')}>
-                  <div className="playback-speed__option-line">
-                    {playbackSpeed == '0.75' ? (
-                      <svg viewBox="0 0 26 26" className="playback-speed__icon active"><circle cx="13" cy="13" fill="#232323" r="12" stroke="#b3b3b3" strokeWidth="2"></circle><circle cx="13" cy="13" fill="#ffffff" r="6"></circle></svg>
-                    ) : (
-                      <svg className="playback-speed__icon" viewBox="0 0 8 8"><circle cx="4" cy="4" r="4" fill="#d8d8d8"/></svg>
-                    )}
-                    0.75x
-                  </div>
-                </li>
-                <li className={"playback-speed__option" + (playbackSpeed == '1' ? " active" : '')} onClick={() => setPlaybackSpeed('1')}>
-                  <div className="playback-speed__option-line active">
-                    {playbackSpeed == '1' ? (
-                      <svg viewBox="0 0 26 26" className="playback-speed__icon active"><circle cx="13" cy="13" fill="#232323" r="12" stroke="#b3b3b3" strokeWidth="2"></circle><circle cx="13" cy="13" fill="#ffffff" r="6"></circle></svg>
-                    ) : (
-                      <svg className="playback-speed__icon" viewBox="0 0 8 8"><circle cx="4" cy="4" r="4" fill="#d8d8d8"/></svg>
-                    )}
-                    1x (Normal)
-                  </div>
-                </li>                
-                <li className={"playback-speed__option" + (playbackSpeed == '1.25' ? " active" : '')} onClick={() => setPlaybackSpeed('1.25')}>
-                  <div className="playback-speed__option-line">
-                    {playbackSpeed == '1.25' ? (
-                      <svg viewBox="0 0 26 26" className="playback-speed__icon active"><circle cx="13" cy="13" fill="#232323" r="12" stroke="#b3b3b3" strokeWidth="2"></circle><circle cx="13" cy="13" fill="#ffffff" r="6"></circle></svg>
-                    ) : (
-                      <svg className="playback-speed__icon" viewBox="0 0 8 8"><circle cx="4" cy="4" r="4" fill="#d8d8d8"/></svg>
-                    )}
-                    1.25x
-                  </div>
-                </li>
-                <li className={"playback-speed__option last" + (playbackSpeed == '1.5' ? " active" : '')}  onClick={() => setPlaybackSpeed('1.5')}>
-                  <div className="playback-speed__option-line last">
-                    {playbackSpeed == '1.5' ? (
-                      <svg viewBox="0 0 26 26" className="playback-speed__icon active last"><circle cx="13" cy="13" fill="#232323" r="12" stroke="#b3b3b3" strokeWidth="2"></circle><circle cx="13" cy="13" fill="#ffffff" r="6"></circle></svg>
-                    ) : (
-                      <svg className="playback-speed__icon" viewBox="0 0 8 8"><circle cx="4" cy="4" r="4" fill="#d8d8d8"/></svg>
-                    )}
-                    1.5x
-                  </div>
-                </li>              
-              </ul>
-              </div>
-              <div className="playback-speed__padding"></div>
-            </div>
-          </button>
+          <PlaybackSpeedButton videoElement={videoElement}/>
         </li>
         <li className="control-bar__fullscreen-item control-bar__item">
             <button className="control-bar__fullscreen-button control-bar__button" onClick={() => toggleFullscreen()}>

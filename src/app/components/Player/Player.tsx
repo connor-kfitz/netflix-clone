@@ -3,7 +3,7 @@ import { useRef } from "react";
 import Image from "next/image";
 import ControlBar from "./ControlBar/ControlBar";
 import BackIcon from "../../../../public/images/player/back-icon.svg";
-import FlagIcon from "../../../../public/images/player/flag-icon.svg";
+// import FlagIcon from "../../../../public/images/player/flag-icon.svg";
 import "./Player.scss";
 
 export default function Player() {

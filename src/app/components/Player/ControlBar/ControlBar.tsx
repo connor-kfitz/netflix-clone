@@ -18,7 +18,7 @@ type ControlBarProps = {
 export default function ControlBar({playerElement, videoElement}: ControlBarProps) {
 
   const [scrubberPosition, setScrubberPosition] = useState(0);
-  const [playing, setPlaying] = useState(false);
+  const [playing, setPlaying] = useState(true);
   const [playbackSpeed, setPlaybackSpeed] = useState('1');
   const [fullscreen, setFullscreen] = useState(false);
 
@@ -94,12 +94,10 @@ export default function ControlBar({playerElement, videoElement}: ControlBarProp
     return result;
   }
 
-
   function togglePlay(): void {
     if (!videoElement.current) return;
     const player = videoElement.current;
     player.paused ? player.play() : player.pause();
-    setPlaying(() => !playing)
   }
 
   function rewind(): void {

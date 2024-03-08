@@ -8,20 +8,26 @@ import "./Player.scss";
 
 export default function Player() {
 
-  const playerElement = useRef(null)
-  const videoElement = useRef(null);
+  const playerElement = useRef<HTMLDivElement>(null)
+  const videoElement = useRef<HTMLVideoElement>(null);
+
+  function togglePlay(): void {
+    if (!videoElement.current) return;
+    const player = videoElement.current;
+    player.paused ? player.play() : player.pause();
+  }
 
   return (
     <div className="player" ref={playerElement}>
-      <video className="player__video" ref={videoElement} autoPlay muted> 
+      <video className="player__video" ref={videoElement} autoPlay muted onClick={() => togglePlay()}> 
         <source src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"></source>
       </video>
-      <a className="player__back-button">
+      <a className="player__back-button" onClick={() => history.back()}>
         <Image className="player__back-button-icon" src={BackIcon} alt="Back"/>
       </a>
-      <button className="player__flag-issue">
+      {/* <button className="player__flag-issue">
         <Image className="player__flag-issue-icon" src={FlagIcon} alt="Flag"/>
-      </button>
+      </button> */}
       <ControlBar playerElement={playerElement} videoElement={videoElement}/>
     </div>
   )

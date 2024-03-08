@@ -1,6 +1,7 @@
 import localFont from "next/font/local"
 import type { Metadata } from "next";
 import "./styles/main.scss"
+import { AuthContextProvider } from "./context/AuthContext";
 
 const netflixSans = localFont({
   src: [
@@ -39,7 +40,9 @@ export default function RootLayout({
   return (
     <html lang="en" className={netflixSans.className}>
       <body>
-        {children}
+        <AuthContextProvider>
+          {children}
+        </AuthContextProvider>
       </body>
     </html>
   );

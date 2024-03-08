@@ -36,3 +36,7 @@ interface HTMLElement {
     webkitRequestFullscreen: any;
     msRequestFullscreen: any;
 }
+
+interface EventTarget {
+    getBoundingClientRect: any;
+}

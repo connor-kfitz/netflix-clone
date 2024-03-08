@@ -6,8 +6,8 @@ import SkipIcon from "../../../../../public/images/player/skip-icon.svg";
 import PlaybackSpeedIcon from "../../../../../public/images/player/playback-speed-icon.svg";
 import FullscreenOffIcon from "../../../../../public/images/player/fullscreen-off-icon.svg";
 import FullscreenOnIcon from "../../../../../public/images/player/fullscreen-on-icon.svg";
-import VolumeButton from "./VolumeSlider/VolumeButton";
-import { RefObject, useState, useEffect } from "react";
+import VolumeButton from "./VolumeButton/VolumeButton";
+import { RefObject, useState, useEffect, useRef } from "react";
 import "./ControlBar.scss";
 
 type ControlBarProps = {
@@ -16,11 +16,13 @@ type ControlBarProps = {
 }
 
 export default function ControlBar({playerElement, videoElement}: ControlBarProps) {
-  // Todo: Listen to video playing event to setPlaying()
 
+  const [scrubberPosition, setScrubberPosition] = useState(0);
   const [playing, setPlaying] = useState(false);
   const [playbackSpeed, setPlaybackSpeed] = useState('1');
   const [fullscreen, setFullscreen] = useState(false);
+
+  const scrubberRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setSpeed(playbackSpeed);
@@ -29,6 +31,7 @@ export default function ControlBar({playerElement, videoElement}: ControlBarProp
   useEffect(() => {
     initPlayListener();
     initPauseListener();
+    initThumbInterval();
   }, [])
 
   function initPlayListener(): void {
@@ -43,6 +46,35 @@ export default function ControlBar({playerElement, videoElement}: ControlBarProp
     videoElement.current.addEventListener('pause', () => {
       setPlaying(false);
     })
+  }
+
+  function initThumbInterval(): void {
+    setInterval(() => {
+      if (!videoElement.current || !scrubberRef.current) return;
+      const player = videoElement.current;
+      const currentTime = player.currentTime;
+      const duration = player.duration;
+      const scrubberLength = scrubberRef.current.offsetWidth;
+      setScrubberPosition(scrubberLength * (currentTime / duration))      
+    }, 500)
+  }
+
+  function getPlayedWidth(): number {
+    if (!videoElement.current || !scrubberRef.current) return 0;
+    const player = videoElement.current;
+    const currentTime = player.currentTime;
+    const duration = player.duration;
+    const scrubberLength = scrubberRef.current.offsetWidth;
+    return (scrubberLength * (currentTime / duration));
+  }
+
+  function updateVideoTime(event: React.MouseEvent<Element, MouseEvent>): void {
+    if (!videoElement.current || !scrubberRef.current) return;
+    const player = videoElement.current;
+    const scrubberLength = scrubberRef.current.offsetWidth;
+    const clickedPercent = (event.clientX - event.target.getBoundingClientRect().left) / scrubberLength;
+    player.currentTime = player.duration * clickedPercent;
+
   }
 
   function togglePlay(): void {
@@ -89,7 +121,9 @@ export default function ControlBar({playerElement, videoElement}: ControlBarProp
   return (
     <div className="control-bar">
       <div className="control-bar__scrub-container">
-        <div className="control-bar__scrubber">
+        <div className="scrubber" ref={scrubberRef} onClick={(event: React.MouseEvent<Element, MouseEvent>) => updateVideoTime(event)}>
+          <div className="scrubber__played" style={{width: getPlayedWidth() + "px"}}></div>
+          <div className="scrubber__thumb" style={{left: scrubberPosition + "px"}}></div>
         </div>
         <div className="control-bar__time">1:29:35</div>
       </div>

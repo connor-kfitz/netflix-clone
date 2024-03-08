@@ -11,12 +11,6 @@
         padding: 0 2rem;
     }
 
-    &__scrubber {
-        height: 0.5rem;
-        flex: 1;
-        background-color: grey;
-    }
-
     &__time {
         margin-left: 1rem;
     }
@@ -72,6 +66,39 @@
                 display: block;
             }
         }
+    }
+}
+
+.scrubber {
+    position: relative;
+    height: 0.5rem;
+    flex: 1;
+    background-color: grey;
+    transition: 0.1s;
+    cursor: pointer;
+
+    &:hover {
+        height: .7rem;
+    }
+
+    &__played {
+        position: absolute;
+        left: 0;
+        height: 100%;
+        background-color: #ff0000;;
+    }
+
+    &__thumb {
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        margin: auto 0;
+        transform: translateX(-50%);
+        background-color: #ff0000;;
+        width: 1.5rem;
+        height: 1.5rem;
+        border-radius: 10rem;
     }
 }
 

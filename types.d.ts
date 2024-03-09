@@ -39,4 +39,6 @@ interface HTMLElement {
 
 interface EventTarget {
     getBoundingClientRect: any;
+    name: string;
+    value: string;
 }

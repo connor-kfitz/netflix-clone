@@ -3,6 +3,7 @@ import Spotlight from "../components/Spotlight/Spotlight";
 import Swimlane from "../components/Swimlane/Swimlane";
 import Footer from "../components/Footer/Footer";
 import { getCards } from "../../../dataFetch";
+import AuthGuard from "../guards/AuthGuard";
 
 export default async function BrowsePage() {
 
@@ -10,14 +11,16 @@ export default async function BrowsePage() {
 
   return (
     <>
-      <Navbar />
-      <main>
-        <Spotlight/>
-        {swimlanes.map((swimlane: Swimlane, index: number) => (
-          <Swimlane swimlaneData={swimlane} key={index}/>
-        ))}
-      </main>
-      <Footer/>
+      <AuthGuard>
+        <Navbar />
+        <main>
+          <Spotlight/>
+          {swimlanes.map((swimlane: Swimlane, index: number) => (
+            <Swimlane swimlaneData={swimlane} key={index}/>
+          ))}
+        </main>
+        <Footer/>
+      </AuthGuard>
     </>
   );
 }

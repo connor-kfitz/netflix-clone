@@ -2,8 +2,9 @@
 import BackgroundImage from "../../../../public/images/login/login-background.jpg";
 import Image from "next/image";
 import { useState } from "react";
-import { UserAuth } from "@/app/context/AuthContext";
 import { useRouter } from "next/navigation";
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { auth } from "@/app/firebase/clientApp";
 import "./SignUp.scss";
 
 export default function Login() {
@@ -13,8 +14,6 @@ export default function Login() {
     email: '',
     password: ''
   })
-
-  const { signUp } = UserAuth();
 
   const router = useRouter();
 
@@ -26,7 +25,9 @@ export default function Login() {
   async function handleSubmit(event: React.MouseEvent<HTMLButtonElement>): Promise<void> {
     event.preventDefault();
     try {
-      await signUp(formData.email, formData.password);
+      const email = formData.email;
+      const password = formData.password;
+      await createUserWithEmailAndPassword(auth, email, password);
       router.push('/browse');
     } catch (error) {
       // Todo: Alert user that the sign up failed

@@ -4,13 +4,11 @@ import Link from "next/link"
 import netflixLogo from "../../../../public/images/navbar/Netflix-Logo.svg"
 import Image from "next/image"
 import { navItems } from "../../common/constants";
-import { UserAuth } from "@/app/context/AuthContext";
 import { useRouter } from 'next/navigation';
 import './Navbar.scss';
+import { signOut } from "next-auth/react"
 
 export default function Navbar() {
-
-  const { logOut } = UserAuth();
 
   const [navBackgroundColor, setNavBackgroundColor] = useState('');
 
@@ -36,7 +34,7 @@ export default function Navbar() {
 
   async function handleLogOut(): Promise<void> {
     try {
-      await logOut();
+      await signOut();
       router.push('/login', {scroll: false});
     } catch (error) {
       console.log(error)

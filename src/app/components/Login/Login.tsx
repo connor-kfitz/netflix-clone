@@ -1,10 +1,10 @@
 "use client";
 import BackgroundImage from "../../../../public/images/login/login-background.jpg";
 import Image from "next/image";
-import "./Login.scss";
 import { useState } from "react";
-import { UserAuth } from "@/app/context/AuthContext";
 import { useRouter } from "next/navigation";
+import { signIn } from 'next-auth/react';
+import "./Login.scss";
 
 export default function Login() {
 
@@ -13,8 +13,6 @@ export default function Login() {
     email: '',
     password: ''
   })
-
-  const { logIn } = UserAuth();
 
   const router = useRouter();
 
@@ -26,7 +24,9 @@ export default function Login() {
   async function handleSubmit(event: React.MouseEvent<HTMLButtonElement>): Promise<void> {
     event.preventDefault();
     try {
-      await logIn(formData.email, formData.password);
+      const email = formData.email;
+      const password = formData.password
+      await signIn('credentials', {email, password});
       router.push('/browse');
     } catch (error) {
       // Todo: Alert user that the login failed

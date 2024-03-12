@@ -4,7 +4,9 @@ import Image from "next/image";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { auth } from "@/app/firebase/clientApp";
+import { auth, db } from "@/app/firebase/clientApp";
+import { setDoc, doc } from 'firebase/firestore';
+import { signIn } from 'next-auth/react';
 import "./SignUp.scss";
 
 export default function Login() {
@@ -28,6 +30,15 @@ export default function Login() {
       const email = formData.email;
       const password = formData.password;
       await createUserWithEmailAndPassword(auth, email, password);
+      await setDoc(doc(db, 'users', email), {
+        accounts: [
+          {
+            name: 'Name',
+            profileImage: '/defaultAvatar',
+          }
+        ]
+      })
+      await signIn('credentials', {email, password});
       router.push('/browse');
     } catch (error) {
       // Todo: Alert user that the sign up failed

@@ -27,12 +27,20 @@ export const navItems: NavItem[] = [
   }
 ]
 
+import DefaultAvatar from "../../../public/images/avatars/avatar.png";
+
+export const profileAvatars: ProfileAvatar[] = [
+  {
+    image: DefaultAvatar,
+    ref: '/defaultAvatar'
+  }
+]
+
 // Footer //
 import FacebookIcon from "../../../public/images/footer/facebook-icon.svg";
 import InstagramIcon from "../../../public/images/footer/instagram-icon.svg";
 import TwitterIcon from "../../../public/images/footer/twitter-icon.svg";
 import YoutubeIcon from "../../../public/images/footer/youtube-icon.svg";
-
 
 export const socials: SocialItem[] = [
   {

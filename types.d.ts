@@ -3,6 +3,11 @@ type NavItem = {
     path: string
 }
 
+type ProfileAvatar = {
+    image: import("next/image").StaticImageData;
+    ref: string;
+}
+
 type Card = {
     title: string;
     description;
@@ -25,6 +30,12 @@ type SocialItem = {
 type FooterItem = {
     name: string;
     path: string;
+}
+
+type Profile = {
+    name: string;
+    profileImage: string;
+    favorites: string[];
 }
 
 interface Document {

@@ -5,7 +5,7 @@ import netflixLogo from "../../../../public/images/navbar/Netflix-Logo.svg";
 import Image, { StaticImageData } from "next/image";
 import { navItems } from "../../common/constants";
 import { useRouter } from 'next/navigation';
-import { signOut } from "next-auth/react";
+import { signOut, useSession, getSession } from "next-auth/react";
 import { profileAvatars } from "../../common/constants";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from '@/app/firebase/clientApp';
@@ -13,21 +13,28 @@ import './Navbar.scss';
 
 export default function Navbar() {
 
+  const session = useSession();
+  const { update } = useSession();
+
   const [navBackgroundColor, setNavBackgroundColor] = useState('');
-  const [profiles, setProfiles] = useState<Profile[]>();
+  const [accounts, setAccounts] = useState<Account[]>();
 
   const router = useRouter();
 
   useEffect(() => {
     initScrollEventListener();
-    getProfiles();
+    getAccounts();
   },[])
 
-  async function getProfiles(): Promise<void> {
+  async function getAccounts(): Promise<void> {
     const docRef = doc(db, "users", "connor@mail.com");
     const docSnap = await getDoc(docRef);
-    if (docSnap.exists()) { setProfiles(docSnap.data().accounts) }
-    console.log(profiles);
+    if (docSnap.exists()) { 
+      const sess = await getSession();
+      if (!sess?.user?.account) return;
+      const profileIndex = docSnap.data().accounts.findIndex((account: Account) => account.name !== sess?.user?.account?.name);
+      setAccounts(docSnap.data().accounts.splice(profileIndex, 1));
+    }
   }
 
   function initScrollEventListener(): void {
@@ -53,13 +60,16 @@ export default function Navbar() {
     }
   }
 
-  function getAvatar(): StaticImageData {
-    return profileAvatars[0].image;
+  function getAvatar(account: Account | undefined): StaticImageData {
+    const index = profileAvatars.findIndex((item) => item.ref === account?.profileImagePath);
+    if (index < 0) return profileAvatars[0].image;
+    return profileAvatars[index].image;
   }
 
-  function changeProfile(profile: Profile): void {
+  async function changeProfile(account: Account): Promise<void> {
     // Todo: Implement logic to change profile when context is available
-    console.log('Change Profile to ', profile)
+    await update({ account: account });
+    getAccounts();
   }
 
   return (
@@ -77,17 +87,21 @@ export default function Navbar() {
         ))}
       </ul>
       <div className="navbar__profile-container">
-          <Image className="navbar__profile-icon" src={getAvatar()} alt="Profile"/>
-          <div className="navbar__profile-arrow-icon"></div>
+          {session ? (
+          <>
+            <Image className="navbar__profile-icon" src={getAvatar(session.data?.user.account)} alt="Profile"/> 
+            <div className="navbar__profile-arrow-icon"></div>
+          </>
+          ) : null}  
           <div className="settings-dropdown">
             <div className="settings-dropdown__arrow-icon"></div>
             <div className="settings-dropdown__content">
               <ul className="settings-dropdown__profiles-container">
-                {profiles ? profiles.map((profile, index) => (
+                {accounts ? accounts.map((account, index) => (
                   <li className="settings-dropdown__profile-item" key={index}>
-                    <button className="settings-dropdown__profile-button" onClick={() => changeProfile(profile)}>
-                      <Image className="settings-dropdown__profile-icon" src={getAvatar()} alt="Profile"/>
-                      {profile.name}
+                    <button className="settings-dropdown__profile-button" onClick={() => changeProfile(account)}>
+                      <Image className="settings-dropdown__profile-icon" src={getAvatar(account)} alt="Profile"/>
+                      {account.name}
                     </button>
                   </li>
                 )) : null}

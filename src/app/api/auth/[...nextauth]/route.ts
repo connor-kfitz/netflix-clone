@@ -1,8 +1,8 @@
-import NextAuth from "next-auth"
+import NextAuth, { Session } from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials";
 import {signInWithEmailAndPassword} from 'firebase/auth';
 import { auth } from "@/app/firebase/clientApp";
-
+import { JWT } from "next-auth/jwt";
 
 export const authOptions = {
   pages: {
@@ -15,7 +15,6 @@ export const authOptions = {
       async authorize(credentials): Promise<any> {
         return await signInWithEmailAndPassword(auth, (credentials as any).email || '', (credentials as any).password || '')
           .then(userCredential => {
-            console.log(userCredential);
             if (userCredential.user) {
               return userCredential.user;
             }
@@ -30,6 +29,27 @@ export const authOptions = {
       }
     })
   ],
+  // Todo: Fix types
+  callbacks: {
+    async jwt({token, session, trigger}: any): Promise<JWT> {
+      if (trigger === 'update' && session?.account) {
+        console.log(session.account);
+        token.account = session.account;
+      }
+      return token;
+   },
+    async session({ session, token }: any): Promise<Session> {
+        console.log(token.account);
+         return {
+          ...session,
+          user: {
+            ...session.user,
+            id: token.id,
+            account: token.account
+          }
+        } 
+    }
+  }
 }
 
 const handler = NextAuth(authOptions)

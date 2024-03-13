@@ -32,9 +32,9 @@ type FooterItem = {
     path: string;
 }
 
-type Profile = {
+type Account = {
     name: string;
-    profileImage: string;
+    profileImagePath: string;
     favorites: string[];
 }
 

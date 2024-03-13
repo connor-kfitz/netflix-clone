@@ -28,11 +28,16 @@ export const navItems: NavItem[] = [
 ]
 
 import DefaultAvatar from "../../../public/images/avatars/avatar.png";
+import AvatarTwo from "../../../public/images/avatars/avatar-two.jpg";
 
 export const profileAvatars: ProfileAvatar[] = [
   {
     image: DefaultAvatar,
     ref: '/defaultAvatar'
+  },
+  {
+    image: AvatarTwo,
+    ref: '/avatar-two'
   }
 ]
 

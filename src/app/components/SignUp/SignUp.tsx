@@ -13,6 +13,7 @@ export default function Login() {
 
   // Todo: Add remember me button
   const [formData, setFormData] = useState({
+    name: '',
     email: '',
     password: ''
   })
@@ -27,13 +28,14 @@ export default function Login() {
   async function handleSubmit(event: React.MouseEvent<HTMLButtonElement>): Promise<void> {
     event.preventDefault();
     try {
+      const name = formData.name;
       const email = formData.email;
       const password = formData.password;
       await createUserWithEmailAndPassword(auth, email, password);
       await setDoc(doc(db, 'users', email), {
         accounts: [
           {
-            name: 'Name',
+            name: name.trim(),
             profileImage: '/defaultAvatar',
           }
         ]
@@ -54,10 +56,14 @@ export default function Login() {
       <div className="sign-up__container"> 
         <form className="sign-up-form">
           <h1 className="sign-up-form__title">Sign Up</h1>
+          <label className="sign-up-form__name-label">
+            <div className="sign-up-form__name-title">Name</div>
+            <input name="name" value={formData.name} onChange={handleFormChange} type="email"/>
+          </label>
           <label className="sign-up-form__email-label">
             <div className="sign-up-form__email-title">Email</div>
             <input name="email" value={formData.email} onChange={handleFormChange} type="email"/>
-          </label >
+          </label>
           <label className="sign-up-form__password-label">
             <div className="sign-up-form__password-title">Password</div>
             <input value={formData.password} name="password" onChange={handleFormChange} type="password"/>

@@ -72,6 +72,18 @@
         margin-bottom: 2.8rem;
     }
 
+    &__name-label {
+        position: relative;
+    }
+
+    &__name-title {
+        position: absolute;
+        top: .7rem;
+        left: 2rem;
+        font-size: 1.1rem;
+        color: #8c8c8c;
+    }
+
     &__email-label {
         position: relative;
     }
@@ -82,7 +94,6 @@
         left: 2rem;
         font-size: 1.1rem;
         color: #8c8c8c;
-
     }
 
     &__password-label {

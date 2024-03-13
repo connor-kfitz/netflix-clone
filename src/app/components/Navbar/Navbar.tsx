@@ -24,9 +24,10 @@ export default function Navbar() {
   },[])
 
   async function getProfiles(): Promise<void> {
-    const docRef = doc(db, "users", "abc@mail.com");
+    const docRef = doc(db, "users", "connor@mail.com");
     const docSnap = await getDoc(docRef);
     if (docSnap.exists()) { setProfiles(docSnap.data().accounts) }
+    console.log(profiles);
   }
 
   function initScrollEventListener(): void {

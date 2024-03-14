@@ -1,0 +1,89 @@
+.profiles {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100%;
+
+    &__title {
+        font-size: 3.5vw;
+        font-weight: 400;
+        margin-bottom: 2.8rem;
+    }
+
+    &__container {
+        display: flex;
+        list-style: none;
+        margin-bottom: 10rem;
+    }
+
+    &__profile-box {
+        width: 10vw;
+        max-width: 20rem;
+        min-width: 8.4rem;
+        cursor: pointer;
+
+        &:not(:last-child) {
+            margin-right: 2vw;
+        }
+
+        &:hover {
+            .profiles__edit-image-border {
+                border: solid #e5e5e580 .4rem;
+            }
+
+            .profiles__profile-name {
+                color: #fff;
+            }
+        }
+    }
+
+    &__icon-container {
+        position: relative;
+        margin-bottom: 1rem;
+    }
+
+    &__profile-icon {
+        display: block;
+        width: 100%;
+        height: auto;
+        border-radius: .4rem;
+    }
+
+    &__edit-image-border {
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        top: 0;
+        left: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #33333380;
+        border-radius: .4rem;
+    }
+
+    &__edit-image {
+        width: 25%;
+    }
+
+    &__profile-name {
+       text-align: center;
+       font-size: 2.4rem;
+       color: grey;
+    }
+
+    &__done-button {
+        text-decoration: none;
+        color: #000;
+        font-size: 1.2vw;
+        font-weight: 500;
+        background-color: #fff;
+        padding: .4vw 1.85vw;
+
+        &:hover {
+            background: #c00;
+            color: #fff;
+        }
+    }
+}

@@ -17,7 +17,7 @@ export default function Navbar() {
   const { update } = useSession();
 
   const [navBackgroundColor, setNavBackgroundColor] = useState('');
-  const [accounts, setAccounts] = useState<Account[]>();
+  const [accounts, setAccounts] = useState<Account[]>([]);
 
   const router = useRouter();
 
@@ -27,19 +27,18 @@ export default function Navbar() {
   },[])
 
   async function getAccounts(): Promise<void> {
-    const docRef = doc(db, "users", "connor@mail.com");
+    const currentSession = await getSession();
+    if (!currentSession?.user.email) return;
+    const docRef = doc(db, "users", currentSession?.user.email);
     const docSnap = await getDoc(docRef);
-    if (docSnap.exists()) { 
-      const sess = await getSession();
-      if (!sess?.user?.account) return;
-      const profileIndex = docSnap.data().accounts.findIndex((account: Account) => account.name !== sess?.user?.account?.name);
-      setAccounts(docSnap.data().accounts.splice(profileIndex, 1));
-    }
+    if (!docSnap.exists()) return;
+    const accounts = docSnap.data().accounts;
+    setAccounts(accounts.filter((account: Account) => account.name !== currentSession?.user?.account?.name));
   }
 
   function initScrollEventListener(): void {
     window.addEventListener('scroll', () => {
-      setNavColor()
+      setNavColor();
     })
   }
 
@@ -69,7 +68,7 @@ export default function Navbar() {
   async function changeProfile(account: Account): Promise<void> {
     // Todo: Implement logic to change profile when context is available
     await update({ account: account });
-    getAccounts();
+    await getAccounts();
   }
 
   return (

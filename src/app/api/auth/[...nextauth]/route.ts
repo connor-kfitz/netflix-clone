@@ -1,8 +1,17 @@
 import NextAuth, { Session } from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials";
 import {signInWithEmailAndPassword} from 'firebase/auth';
-import { auth } from "@/app/firebase/clientApp";
+import { auth, db } from "@/app/firebase/clientApp";
 import { JWT } from "next-auth/jwt";
+import { doc, getDoc } from "firebase/firestore";
+
+async function pullAccountData(token: any): Promise<Account> {
+  if (!token.email) return {name: '', profileImagePath: '', favorites: []};
+  const docRef = doc(db, "users", token.email);
+  const docSnap = await getDoc(docRef);
+  if (docSnap.exists()) return docSnap.data().accounts[0];
+  return {name: '', profileImagePath: '', favorites: []}
+}
 
 export const authOptions = {
   pages: {
@@ -33,19 +42,17 @@ export const authOptions = {
   callbacks: {
     async jwt({token, session, trigger}: any): Promise<JWT> {
       if (trigger === 'update' && session?.account) {
-        console.log(session.account);
         token.account = session.account;
       }
       return token;
    },
     async session({ session, token }: any): Promise<Session> {
-        console.log(token.account);
          return {
           ...session,
           user: {
             ...session.user,
             id: token.id,
-            account: token.account
+            account: token.account ? token.account : await pullAccountData(token)
           }
         } 
     }
